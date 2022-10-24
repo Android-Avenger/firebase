@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "382347540474",
+    "project_id": "fir-image-upload-40236",
+    "storage_bucket": "fir-image-upload-40236.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:382347540474:android:2af2792317fa457bdc1643",
+        "android_client_info": {
+          "package_name": "com.tayyba.firebaseimageupload"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "382347540474-g8bq8hqhd8dr6lh8lkuivksli3bpm72d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBaGqSB15ztjj1qWDp1aqWDp49G9H3wQE0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "382347540474-g8bq8hqhd8dr6lh8lkuivksli3bpm72d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
