@@ -4,10 +4,15 @@ import android.app.Activity
 import android.app.ProgressDialog
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
@@ -29,11 +34,13 @@ import java.util.*
 
 class MainActivity : ComponentActivity() {
 
-    var img = Uri.Builder().build()
-    val mViewModel: ImagePickerViewModel by viewModels()
+    private val handler = Handler()
+    private val mViewModel: ImagePickerViewModel by viewModels()
 
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContent {
             val uri by mViewModel.img.observeAsState()
             FireBaseImageUploadTheme {
@@ -57,11 +64,11 @@ class MainActivity : ComponentActivity() {
 
                         Button(
                             modifier = Modifier
-                                .width(100.dp)
+                                .wrapContentWidth()
                                 .height(40.dp), onClick = {
                                 openGalleryForImage()
                             }) {
-                            Text(text = "Upload")
+                            Text(text = "Upload Image toFireBase")
                         }
                     }
                 }
@@ -69,7 +76,6 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    val REQUEST_CODE = 100
     private fun openGalleryForImage() {
         val intent = Intent()
         intent.type = "image/*"
@@ -91,21 +97,56 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-
     private fun uploadImage(filePath: Uri) {
-        val progressDialog = ProgressDialog(this)
-        progressDialog.setTitle("Uploading...")
-        progressDialog.show()
         val ref =
             FirebaseStorage.getInstance().reference.child("images/" + UUID.randomUUID().toString())
         ref.putFile(filePath)
-            .addOnSuccessListener { progressDialog.dismiss() }
-            .addOnFailureListener { progressDialog.dismiss() }
+            .addOnSuccessListener { }
+            .addOnFailureListener { }
             .addOnProgressListener { taskSnapshot ->
-                val progress = 100.0 * taskSnapshot.bytesTransferred / taskSnapshot
-                    .totalByteCount
-                progressDialog.setMessage("Uploaded " + progress.toInt() + "%")
+                if (taskSnapshot.totalByteCount.toInt() / 1000 > 100) {
+                    try {
+                        Toast.makeText(
+                            this,
+                            "Too Large for Upload : " + taskSnapshot.totalByteCount / 1000000 + " mb",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }catch (e : InterruptedException){
+                     e.printStackTrace()
+                    }
+
+                } else {
+                    showProgressDialogHorizontal(
+                        taskSnapshot.totalByteCount.toInt() / 1000,
+                        taskSnapshot.bytesTransferred.toInt() / 1000
+                    )
+                }
             }
     }
 
+
+    private fun showProgressDialogHorizontal(max: Int = 100, progress: Int = 0) {
+
+        var progressStatus = progress
+        val progressDialog = ProgressDialog(this)
+        progressDialog.setTitle("Uploading")
+        progressDialog.setMessage("Image is uploading ")
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL)
+        progressDialog.setCancelable(true)
+        progressDialog.max = max
+        progressDialog.show()
+
+        Thread {
+            while (progressStatus < max) {
+                try {
+                    Thread.sleep(200)
+                    progressStatus += 20
+                } catch (e: InterruptedException) {
+                    e.printStackTrace()
+                }
+                handler.post { progressDialog.progress = progressStatus }
+            }
+            progressDialog.dismiss()
+        }.start()
+    }
 }
