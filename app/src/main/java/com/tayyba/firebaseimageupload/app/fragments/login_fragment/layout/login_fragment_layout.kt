@@ -14,8 +14,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.tayyba.firebaseimageupload.app.compoasables.MyAuthButton
-import com.tayyba.firebaseimageupload.app.compoasables.MyOutlineTextField
+import com.tayyba.firebaseimageupload.app.composables.MyAuthButton
+import com.tayyba.firebaseimageupload.app.composables.MyOutlineTextField
 import com.tayyba.firebaseimageupload.ui.theme.Reeem
 
 @Preview

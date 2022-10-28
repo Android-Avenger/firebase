@@ -7,6 +7,7 @@ class FireBaseUserAuth(
    private val firebaseAuth : FirebaseFirestore
 ) {
 
+
     fun registerUser(name : String , email : String , password : String){
         firebaseAuth.collection("user")
             .add(User(name,email,password))

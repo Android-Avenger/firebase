@@ -11,31 +11,48 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.tayyba.firebaseimageupload.app.compoasables.MyAuthButton
-import com.tayyba.firebaseimageupload.app.compoasables.MyOutlineTextField
+import com.tayyba.firebaseimageupload.app.composables.MyAuthButton
+import com.tayyba.firebaseimageupload.app.composables.MyOutlineTextField
+import com.tayyba.firebaseimageupload.app.fragments.register_fragment.state.RegisterFragmentState
 import com.tayyba.firebaseimageupload.ui.theme.Reeem
 
-@Preview
 @Composable
-fun RegisterFragmentLayout(){
+fun RegisterFragmentLayout(
+    state: RegisterFragmentState,
+    onNameChanged: (String) -> Unit,
+    onEmailChanged: (String) -> Unit,
+    onPasswordChanged: (String) -> Unit,
+    onConfirmPasswordChanged: (String) -> Unit,
+    onRegisterButtonClick: () -> Unit
+) {
     Column(
         Modifier
             .background(Color.White)
             .padding(30.dp)
             .fillMaxSize(),
-    horizontalAlignment = Alignment.CenterHorizontally,
-    verticalArrangement = Arrangement.Center) {
-        Text(text = "REGISTER",
-        fontSize = 30.sp,
-        fontFamily = Reeem,
-        fontWeight = FontWeight.Bold)
-        MyOutlineTextField(label = "Name", value = "", onValueChange = {})
-        MyOutlineTextField(label = "Email", value = "", onValueChange = {})
-        MyOutlineTextField(label = "Password", value = "", onValueChange ={})
-        MyOutlineTextField(label = "Confirm Password", value = "", onValueChange ={} )
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        Text(
+            text = "REGISTER",
+            fontSize = 30.sp,
+            fontFamily = Reeem,
+            fontWeight = FontWeight.Bold
+        )
+        MyOutlineTextField(label = "Name", value = state.name, onValueChange = onNameChanged)
+        MyOutlineTextField(label = "Email", value = state.email, onValueChange = onEmailChanged)
+        MyOutlineTextField(
+            label = "Password",
+            value = state.password,
+            onValueChange = onPasswordChanged
+        )
+        MyOutlineTextField(
+            label = "Confirm Password",
+            value = state.confirmPassword,
+            onValueChange = onConfirmPasswordChanged
+        )
         MyAuthButton(label = "Register")
     }
 

@@ -1,14 +1,13 @@
 package com.tayyba.firebaseimageupload.firebase
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.ktx.Firebase
 import com.tayyba.firebaseimageupload.R
 
 class FirebaseRegister : AppCompatActivity() {
 
-    val firebaseFirstore = FirebaseFirestore.getInstance()
+   private val firebaseFirstore = FirebaseFirestore.getInstance()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_firebase_register)

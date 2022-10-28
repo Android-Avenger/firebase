@@ -1,4 +1,4 @@
-package com.tayyba.firebaseimageupload.app.compoasables
+package com.tayyba.firebaseimageupload.app.composables
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
