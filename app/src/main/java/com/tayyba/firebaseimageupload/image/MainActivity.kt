@@ -1,4 +1,4 @@
-package com.tayyba.firebaseimageupload
+package com.tayyba.firebaseimageupload.image
 
 import android.app.Activity
 import android.app.ProgressDialog
@@ -7,7 +7,6 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
-import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -28,6 +27,7 @@ import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.unit.dp
 import com.google.firebase.storage.FirebaseStorage
 import com.skydoves.landscapist.glide.GlideImage
+import com.tayyba.firebaseimageupload.R
 import com.tayyba.firebaseimageupload.ui.theme.FireBaseImageUploadTheme
 import java.util.*
 

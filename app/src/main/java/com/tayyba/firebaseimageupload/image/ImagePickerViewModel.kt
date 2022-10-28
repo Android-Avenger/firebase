@@ -1,4 +1,4 @@
-package com.tayyba.firebaseimageupload
+package com.tayyba.firebaseimageupload.image
 
 import android.net.Uri
 import androidx.lifecycle.MutableLiveData
