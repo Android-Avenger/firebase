@@ -16,7 +16,7 @@ class FireBaseActivity : AppCompatActivity() {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.app_navigation_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
         val navGraph = navController.navInflater.inflate(R.navigation.navigation)
-        navGraph.setStartDestination(R.id.registerFragment)
+        navGraph.setStartDestination(R.id.loginFragment)
         navController.graph = navGraph
 
     }

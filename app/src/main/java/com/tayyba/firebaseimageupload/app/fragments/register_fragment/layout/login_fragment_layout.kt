@@ -1,5 +1,6 @@
 package com.tayyba.firebaseimageupload.app.fragments.register_fragment.layout
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -53,7 +54,8 @@ fun RegisterFragmentLayout(
             value = state.confirmPassword,
             onValueChange = onConfirmPasswordChanged
         )
-        MyAuthButton(label = "Register")
+        MyAuthButton(label = "Register", onClick = { onRegisterButtonClick()
+        Log.d("Button","Button")})
     }
 
 }

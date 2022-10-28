@@ -12,7 +12,7 @@ class RegisterFragmentViewModel @Inject constructor(
     private val mFireBaseAuth : FireBaseUserAuth
 ) : ViewModel() {
 
-    private val state = RegisterFragmentState()
+    val state = RegisterFragmentState()
     val trigger = MutableLiveData(1)
 
 

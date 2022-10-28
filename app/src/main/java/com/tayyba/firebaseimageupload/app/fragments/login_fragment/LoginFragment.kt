@@ -1,4 +1,4 @@
-package com.tayyba.firebaseimageupload.app.fragments.register_fragment
+package com.tayyba.firebaseimageupload.app.fragments.login_fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,14 +8,16 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.tayyba.firebaseimageupload.app.fragments.register_fragment.layout.RegisterFragmentLayout
-import com.tayyba.firebaseimageupload.app.fragments.register_fragment.middlewares.registerFragmentValidator
+import androidx.navigation.findNavController
+import com.tayyba.firebaseimageupload.R
+import com.tayyba.firebaseimageupload.app.fragments.login_fragment.layout.LoginFragmentLayout
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class RegisterFragment : Fragment() {
+class LoginFragment : Fragment() {
 
-    private val mViewModel: RegisterFragmentViewModel by viewModels()
+    private val mViewModel: LoginFragmentViewModel by viewModels()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -24,18 +26,15 @@ class RegisterFragment : Fragment() {
         setContent {
             val trigger by mViewModel.trigger.observeAsState()
             trigger?.let {
-                RegisterFragmentLayout(
+                LoginFragmentLayout(
                     state = mViewModel.state,
                     onNameChanged = mViewModel.nameController(),
                     onEmailChanged = mViewModel.emailController(),
                     onPasswordChanged = mViewModel.passwordController(),
-                    onConfirmPasswordChanged = mViewModel.confirmPassword()
-                ) {
-                    registerFragmentValidator(
-                        state = mViewModel.state,
-                        onSuccess = { mViewModel.registerUser() }
-                    )
-                }
+                    onLoginButtonClick = {mViewModel.loginUser()},
+                    onRegisterButtonClick = {
+                        findNavController().navigate(R.id.action_loginFragment_to_registerFragment)                    }
+                )
             }
         }
     }
