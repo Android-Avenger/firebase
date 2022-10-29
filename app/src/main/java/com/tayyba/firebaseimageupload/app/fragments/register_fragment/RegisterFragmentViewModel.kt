@@ -9,37 +9,30 @@ import javax.inject.Inject
 
 @HiltViewModel
 class RegisterFragmentViewModel @Inject constructor(
-    private val mFireBaseAuth : FireBaseUserAuth
+    private val mFireBaseAuth: FireBaseUserAuth
 ) : ViewModel() {
 
     val state = RegisterFragmentState()
     val trigger = MutableLiveData(1)
 
 
-
     private fun triggerState() {
         trigger.value = trigger.value!!.plus(1)
     }
 
-
-    fun registerUser() {
-        mFireBaseAuth.registerUser(state.name,state.email,state.password)
+    fun registerUser(
+        onError: (String?) -> Unit,
+        onSuccess: () -> Unit) {
+        mFireBaseAuth.registerUser(
+            name = state.name,
+            email = state.email,
+            password = state.password,
+            onError = {
+                onError(it)
+            },
+            onSuccess = onSuccess
+        )
     }
-
-
-
-//    fun registerUser(
-//        state: RegisterFragmentState,
-//        onSuccess: () -> Unit,
-//        onError: () -> Unit
-//    ) {
-//        firebaseFireStoreAuth?.let {
-//            it.collection("user")
-//                .add(User(state.name, state.email, state.password))
-//                .addOnSuccessListener { onSuccess() }
-//                .addOnFailureListener { onError() }
-//        }
-//    }
 
     fun nameController(): (String) -> Unit = {
         state.name = it

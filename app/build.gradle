@@ -260,6 +260,10 @@ dependencies {
     implementation 'com.google.firebase:firebase-storage:19.1.0'
     implementation platform('com.google.firebase:firebase-bom:31.0.1')
     implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation 'com.google.firebase:firebase-database-ktx'
 
+    //vedio picker
+    implementation 'com.github.majidarabi:AndroidFilePicker:0.0.4'
+    implementation 'com.karumi:dexter:6.2.3'
 
 }

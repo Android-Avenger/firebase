@@ -28,7 +28,6 @@ fun MyOutlineTextField(
 ) {
 
     Column {
-        Spacer(modifier = Modifier.padding(10.dp))
         OutlinedTextField(
             modifier = Modifier
                 .fillMaxWidth()

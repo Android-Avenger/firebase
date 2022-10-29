@@ -1,6 +1,7 @@
 package com.tayyba.firebaseimageupload.app.di
 
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
 import com.tayyba.firebaseimageupload.app.firebase_utils.FireBaseUserAuth
 import dagger.Module
 import dagger.Provides
@@ -15,7 +16,7 @@ class FireBaseModule{
     @Singleton
     @Provides
     fun mFireBaseFireStore():FireBaseUserAuth {
-        return FireBaseUserAuth(FirebaseFirestore.getInstance())
+        return FireBaseUserAuth(FirebaseFirestore.getInstance(), FirebaseStorage.getInstance())
     }
 
 }

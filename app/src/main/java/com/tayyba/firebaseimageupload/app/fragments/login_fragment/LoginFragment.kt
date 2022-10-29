@@ -3,6 +3,7 @@ package com.tayyba.firebaseimageupload.app.fragments.login_fragment
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.platform.ComposeView
@@ -31,9 +32,25 @@ class LoginFragment : Fragment() {
                     onNameChanged = mViewModel.nameController(),
                     onEmailChanged = mViewModel.emailController(),
                     onPasswordChanged = mViewModel.passwordController(),
-                    onLoginButtonClick = {mViewModel.loginUser()},
+                    onLoginButtonClick = {
+                        mViewModel.loginUser(
+                            onError = {
+                                Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
+                            },
+                            onSuccess = {
+                                Toast.makeText(
+                                    requireContext(),
+                                    "Login SuccessFully",
+                                    Toast.LENGTH_LONG
+                                ).show()
+                                findNavController().navigate(R.id.action_loginFragment_to_dashboardFragment)
+                            }
+
+                        )
+                    },
                     onRegisterButtonClick = {
-                        findNavController().navigate(R.id.action_loginFragment_to_registerFragment)                    }
+                        findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
+                    }
                 )
             }
         }

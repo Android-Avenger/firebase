@@ -9,12 +9,11 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginFragmentViewModel @Inject constructor(
-    private val mFireBaseAuth : FireBaseUserAuth
+    private val mFireBaseAuth: FireBaseUserAuth
 ) : ViewModel() {
 
     val state = LoginFragmentState()
     val trigger = MutableLiveData(1)
-
 
 
     private fun triggerState() {
@@ -22,8 +21,18 @@ class LoginFragmentViewModel @Inject constructor(
     }
 
 
-    fun loginUser() {
-        mFireBaseAuth.loginUser(state.email,state.password)
+    fun loginUser(
+        onError: (String?) -> Unit,
+        onSuccess: () -> Unit
+    ) {
+        mFireBaseAuth.loginUser(
+            email = state.email,
+            password = state.password,
+            onError = {
+                onError(it)
+            },
+            onSuccess = onSuccess
+        )
     }
 
     fun nameController(): (String) -> Unit = {
